@@ -2,7 +2,7 @@ name: Auto Commit
 
 on:
   schedule:
-    - cron: "0 * * * *"  # Run once per hour
+    - cron: "0 * * * *"  # Run once every hour
   workflow_dispatch:
 
 jobs:
@@ -18,126 +18,116 @@ jobs:
           git config --global user.name "Boldchingis"
           git config --global user.email "bboldchingis@gmail.com"
 
-      - name: Check if should commit
+      - name: Decide if commit should run
         id: should_commit
         run: |
-          # Get current day (1-7, where 1 is Monday, 7 is Sunday)
-          DAY_OF_WEEK=$(date +%u)
+          DAY=$(date +%u)   # 1=Mon, 7=Sun
           HOUR=$(date +%H)
-          
-          # 90% chance to skip on weekends, 10% chance to commit (occasional weekend work)
-          if [ $DAY_OF_WEEK -ge 6 ]; then  # Saturday or Sunday
-            if [ $((RANDOM % 10)) -gt 1 ]; then  # 90% chance to skip
-              echo "Skipping commit on weekend"
+
+          # Weekend logic
+          if [ $DAY -ge 6 ]; then
+            if [ $((RANDOM % 10)) -gt 1 ]; then
+              echo "Weekend — skipping commits"
               echo "should_commit=false" >> $GITHUB_OUTPUT
               exit 0
             fi
-          # Work hours (9 AM to 6 PM) have higher chance of commits
+          # Work hours logic
           elif [ $HOUR -ge 9 ] && [ $HOUR -lt 18 ]; then
-            # 60% chance to commit during work hours
-            if [ $((RANDOM % 10)) -lt 4 ]; then  # 40% chance to skip
-              echo "Skipping commit during work hours"
+            if [ $((RANDOM % 10)) -lt 4 ]; then
+              echo "Work hours — randomly skipping"
               echo "should_commit=false" >> $GITHUB_OUTPUT
               exit 0
             fi
           else
-            # 80% chance to skip outside work hours
-            if [ $((RANDOM % 10)) -lt 8 ]; then  # 80% chance to skip
-              echo "Skipping commit outside work hours"
+            # Off-hours logic
+            if [ $((RANDOM % 10)) -lt 8 ]; then
+              echo "Off-hours — skipping"
               echo "should_commit=false" >> $GITHUB_OUTPUT
               exit 0
             fi
           fi
-          
-          # Determine number of commits (1-4 per hour, with higher probability of 1-2)
+
+          # Determine number of commits: weighted random
           RAND=$((RANDOM % 100))
           if [ $RAND -lt 40 ]; then
-            COMMIT_COUNT=1
+            COUNT=1
           elif [ $RAND -lt 70 ]; then
-            COMMIT_COUNT=2
+            COUNT=2
           elif [ $RAND -lt 90 ]; then
-            COMMIT_COUNT=3
+            COUNT=3
           else
-            COMMIT_COUNT=4  # 10% chance of 4 commits
+            COUNT=4
           fi
-          
-          echo "Should make $COMMIT_COUNT commits this hour"
-          echo "commit_count=$COMMIT_COUNT" >> $GITHUB_OUTPUT
+
+          echo "Committing $COUNT times this hour"
+          echo "commit_count=$COUNT" >> $GITHUB_OUTPUT
           echo "should_commit=true" >> $GITHUB_OUTPUT
 
       - name: Make commits
         if: steps.should_commit.outputs.should_commit == 'true'
         run: |
+          # Create required folders/files (avoids "No such file" errors)
+          mkdir -p data docs src src/utils
+          touch data/changes.csv docs/CHANGELOG.md src/utils/helpers.js src/utils/logger.js src/index.html
+
           for ((i=1; i<=${{ steps.should_commit.outputs.commit_count }}; i++))
           do
-            # Generate a random time within the hour
-            RANDOM_MINUTES=$((RANDOM % 60))
-            RANDOM_SECONDS=$((RANDOM % 60))
-            
-            # Generate a random commit message with more variety
             FEATURES=("user authentication" "API endpoints" "UI components" "database schema" "error handling" "form validation" "responsive design" "caching layer" "API documentation" "test coverage")
             FIXES=("bug" "typo" "performance issue" "memory leak" "race condition" "UI glitch" "broken link" "security vulnerability" "build error" "test failure")
             IMPROVEMENTS=("refactor" "optimize" "clean up" "reorganize" "update dependencies" "improve error messages" "enhance performance" "add logging" "update docs" "improve tests")
-            
-            # Different types of changes with different probabilities
+
             CHANGE_TYPE=$((RANDOM % 10))
-            if [ $CHANGE_TYPE -lt 4 ]; then  # 40% chance for feature
+            if [ $CHANGE_TYPE -lt 4 ]; then
               MSG_TYPE="feat"
               MSG="add ${FEATURES[$RANDOM % ${#FEATURES[@]}]}"
-            elif [ $CHANGE_TYPE -lt 8 ]; then  # 40% chance for fix
+            elif [ $CHANGE_TYPE -lt 8 ]; then
               MSG_TYPE="fix"
               MSG="fix ${FIXES[$RANDOM % ${#FIXES[@]}]}"
-            else  # 20% chance for improvement
+            else
               MSG_TYPE="chore"
               MSG="${IMPROVEMENTS[$RANDOM % ${#IMPROVEMENTS[@]}]}"
             fi
-            
-            # Add some detail to the message
+
             DETAILS=("" "" "" "" "" "" "" "" "" "" "" "" "" "naming convention" "code style" "for better performance" "to improve UX" "to fix edge case")
             DETAIL="${DETAILS[$RANDOM % ${#DETAILS[@]}]}"
-            
-            # Create a more realistic commit message
+
             COMMIT_MSG="$MSG_TYPE: $MSG"
             [ -n "$DETAIL" ] && COMMIT_MSG="$COMMIT_MSG $DETAIL"
-            
-            # Create a small change in different files
+
             TIMESTAMP=$(TZ='Asia/Ulaanbaatar' date '+%Y-%m-%d %H:%M:%S %Z')
-            
-            # Choose a random file to modify
-            FILE_CHOICE=$((RANDOM % 5))
-            case $FILE_CHOICE in
+
+            FILE=$((RANDOM % 5))
+            case $FILE in
               0) echo "$TIMESTAMP - $COMMIT_MSG" >> commit_log.txt ;;
               1) echo "// $TIMESTAMP - $COMMIT_MSG" >> src/utils/helpers.js ;;
               2) echo "# $TIMESTAMP - $COMMIT_MSG" >> docs/CHANGELOG.md ;;
               3) echo "<!-- $TIMESTAMP - $COMMIT_MSG -->" >> src/index.html ;;
               *) echo "$TIMESTAMP,$MSG_TYPE,$MSG" >> data/changes.csv ;;
             esac
-            
-            # 20% chance to modify multiple files in one commit
+
+            # 20% chance to modify another file
             if [ $((RANDOM % 5)) -eq 0 ]; then
-              echo "$TIMESTAMP - Related change" >> src/utils/logger.js
+              echo "$TIMESTAMP - related update" >> src/utils/logger.js
               git add src/utils/logger.js
               COMMIT_MSG="$COMMIT_MSG and update related files"
             fi
-            
-            # Stage and commit
+
             git add .
             git commit -m "$COMMIT_MSG"
-            
-            # Sleep for a random time between commits (5-120 minutes, weighted towards shorter intervals)
-            RAND_SLEEP=$(( (RANDOM % 100) ))
-            if [ $RAND_SLEEP -lt 60 ]; then  # 60% chance for 5-30 minutes
-                SLEEP_TIME=$(( (RANDOM % 25) + 5 ))
-            elif [ $RAND_SLEEP -lt 90 ]; then  # 30% chance for 30-60 minutes
-                SLEEP_TIME=$(( (RANDOM % 30) + 30 ))
-            else  # 10% chance for 60-120 minutes
-                SLEEP_TIME=$(( (RANDOM % 60) + 60 ))
+
+            # Sleep strategy between commits (inside same workflow run)
+            RAND_SLEEP=$((RANDOM % 100))
+            if [ $RAND_SLEEP -lt 60 ]; then
+              SLEEP=$((5 + RANDOM % 25))
+            elif [ $RAND_SLEEP -lt 90 ]; then
+              SLEEP=$((30 + RANDOM % 30))
+            else
+              SLEEP=$((60 + RANDOM % 60))
             fi
-            
-            # Only sleep if there are more commits to make
+
             if [ $i -lt ${{ steps.should_commit.outputs.commit_count }} ]; then
-              echo "Sleeping for $SLEEP_TIME minutes until next commit"
-              sleep $(( SLEEP_TIME * 60 ))
+              echo "Sleeping $SLEEP minutes..."
+              sleep $((SLEEP * 60))
             fi
           done
 
