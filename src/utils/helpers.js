@@ -4,3 +4,4 @@
 // 2025-12-08 02:53:15 +08 - fix: fix race condition
 // 2025-12-08 07:38:56 +08 - fix: fix race condition
 // 2025-12-08 18:27:09 +08 - feat: add database schema to improve UX
+// 2025-12-08 23:32:03 +08 - feat: add user authentication
