@@ -1,3 +1,4 @@
 # 2025-12-06 10:00:29 +08 - fix: fix test failure for better performance
 # 2025-12-07 10:00:11 +08 - chore: update docs
 # 2025-12-07 23:20:20 +08 - feat: add API documentation
+# 2025-12-08 18:17:09 +08 - fix: fix security vulnerability code style
