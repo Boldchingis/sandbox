@@ -5,3 +5,4 @@
 // 2025-12-08 07:38:56 +08 - fix: fix race condition
 // 2025-12-08 18:27:09 +08 - feat: add database schema to improve UX
 // 2025-12-08 23:32:03 +08 - feat: add user authentication
+// 2025-12-09 15:24:50 +08 - chore: improve tests code style
