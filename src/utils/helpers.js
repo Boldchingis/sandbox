@@ -13,3 +13,4 @@
 // 2025-12-11 03:20:29 +08 - fix: fix UI glitch to improve UX
 // 2025-12-11 03:34:29 +08 - feat: add API endpoints for better performance
 // 2025-12-11 13:25:57 +08 - fix: fix security vulnerability
+// 2025-12-11 17:29:28 +08 - feat: add API documentation
