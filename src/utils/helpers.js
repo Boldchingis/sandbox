@@ -20,3 +20,4 @@
 // 2025-12-12 00:35:13 +08 - fix: fix bug
 // 2025-12-12 01:20:13 +08 - feat: add form validation
 // 2025-12-12 16:33:56 +08 - fix: fix security vulnerability
+// 2025-12-12 17:28:12 +08 - feat: add API documentation
