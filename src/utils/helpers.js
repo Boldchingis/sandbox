@@ -27,3 +27,4 @@
 // 2025-12-21 01:01:55 +08 - fix: fix performance issue code style
 // 2025-12-21 02:30:18 +08 - feat: add API documentation to improve UX
 // 2025-12-21 02:50:18 +08 - chore: refactor to improve UX
+// 2025-12-22 03:17:58 +08 - fix: fix memory leak
