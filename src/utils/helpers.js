@@ -31,3 +31,4 @@
 // 2025-12-23 06:24:14 +08 - feat: add database schema
 // 2025-12-23 09:55:33 +08 - fix: fix security vulnerability
 // 2025-12-23 18:27:33 +08 - feat: add API documentation for better performance
+// 2025-12-23 20:06:50 +08 - feat: add error handling
