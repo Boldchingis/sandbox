@@ -24,3 +24,4 @@
 # 2025-12-28 18:23:56 +08 - feat: add user authentication
 # 2025-12-28 20:00:56 +08 - fix: fix race condition for better performance
 # 2025-12-28 23:27:34 +08 - feat: add UI components
+# 2025-12-29 05:21:06 +08 - feat: add form validation
