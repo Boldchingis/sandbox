@@ -55,3 +55,4 @@
 2025-12-31 15:26:27 +08,fix,fix race condition
 2025-12-31 17:38:22 +08,chore,improve error messages
 2025-12-31 18:02:22 +08,fix,fix memory leak
+2025-12-31 23:24:43 +08,fix,fix bug
