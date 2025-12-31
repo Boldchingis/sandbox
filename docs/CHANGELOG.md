@@ -32,3 +32,4 @@
 # 2025-12-31 04:27:02 +08 - feat: add database schema naming convention
 # 2025-12-31 12:59:31 +08 - fix: fix build error
 # 2025-12-31 18:27:22 +08 - chore: clean up
+# 2025-12-31 20:04:32 +08 - chore: reorganize
