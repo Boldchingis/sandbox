@@ -36,3 +36,4 @@
 # 2026-01-01 01:21:17 +08 - feat: add API documentation
 # 2026-01-01 08:17:39 +08 - feat: add API endpoints for better performance
 # 2026-01-01 12:20:51 +08 - fix: fix bug
+# 2026-01-01 19:21:04 +08 - fix: fix UI glitch
