@@ -61,3 +61,4 @@
 // 2026-01-04 21:11:54 +08 - feat: add API documentation
 // 2026-01-05 19:29:42 +08 - fix: fix broken link
 // 2026-01-06 23:58:10 +08 - feat: add caching layer
+// 2026-01-07 23:53:14 +08 - feat: add responsive design to fix edge case
