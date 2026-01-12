@@ -55,3 +55,4 @@
 # 2026-01-10 07:23:42 +08 - fix: fix broken link
 # 2026-01-12 14:18:32 +08 - chore: add logging
 # 2026-01-12 23:39:43 +08 - chore: improve error messages for better performance
+# 2026-01-13 02:38:36 +08 - fix: fix memory leak
