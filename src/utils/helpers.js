@@ -85,3 +85,4 @@
 // 2026-01-16 20:52:25 +08 - feat: add UI components
 // 2026-01-17 06:38:45 +08 - feat: add error handling
 // 2026-01-18 17:24:31 +08 - chore: enhance performance for better performance
+// 2026-01-18 22:20:59 +08 - feat: add database schema
