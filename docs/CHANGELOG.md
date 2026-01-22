@@ -70,3 +70,4 @@
 # 2026-01-18 20:17:02 +08 - fix: fix bug
 # 2026-01-20 21:52:08 +08 - feat: add API endpoints
 # 2026-01-22 01:59:07 +08 - feat: add database schema
+# 2026-01-22 13:31:36 +08 - fix: fix memory leak
