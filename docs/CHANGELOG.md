@@ -71,3 +71,4 @@
 # 2026-01-20 21:52:08 +08 - feat: add API endpoints
 # 2026-01-22 01:59:07 +08 - feat: add database schema
 # 2026-01-22 13:31:36 +08 - fix: fix memory leak
+# 2026-01-22 21:51:47 +08 - feat: add API endpoints to improve UX
