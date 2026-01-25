@@ -78,3 +78,4 @@
 # 2026-01-24 14:35:57 +08 - fix: fix build error
 # 2026-01-25 05:21:05 +08 - feat: add API endpoints
 # 2026-01-25 05:46:05 +08 - chore: improve tests to fix edge case
+# 2026-01-26 01:35:03 +08 - feat: add UI components
