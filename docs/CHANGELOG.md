@@ -83,3 +83,4 @@
 # 2026-01-26 17:58:51 +08 - feat: add API endpoints to fix edge case
 # 2026-01-26 23:32:58 +08 - chore: enhance performance
 # 2026-01-27 04:13:41 +08 - fix: fix broken link
+# 2026-01-27 07:26:24 +08 - fix: fix memory leak
