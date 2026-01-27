@@ -111,3 +111,4 @@
 // 2026-01-26 19:23:45 +08 - fix: fix memory leak
 // 2026-01-26 20:55:50 +08 - fix: fix bug
 // 2026-01-26 22:31:59 +08 - fix: fix UI glitch code style
+// 2026-01-28 05:21:14 +08 - feat: add test coverage
